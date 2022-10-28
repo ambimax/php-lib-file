@@ -1,0 +1,39 @@
+{
+    "name": "ambimax/php-lib-file",
+    "type": "library",
+    "homepage": "https://ambimax.de",
+    "authors": [
+        {
+            "name": "Fabian Köhnen",
+            "email": "fk@ambimax.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ambimax\\File\\": "src/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@unit-coverage",
+            "@stan"
+        ],
+        "cs-check": "vendor/bin/php-cs-fixer fix . --dry-run --rules=@Symfony --diff",
+        "cs-fix": "vendor/bin/php-cs-fixer fix . --rules=@Symfony",
+        "unit": "vendor/bin/phpunit",
+        "stan": "vendor/bin/phpstan analyse -c phpstan.neon",
+        "unit-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text"
+    },
+
+    "require": {
+        "php": ">=8.0",
+        "phpseclib/phpseclib": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.5.2",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan-symfony": "^1.1",
+        "mikey179/vfsstream": "^1.6"
+    }
+}
