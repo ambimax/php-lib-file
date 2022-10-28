@@ -13,51 +13,47 @@ class FileTest extends TestCase
 
     protected vfsStreamDirectory $root;
 
+    protected File $readableFile;
+
     public function setUp(): void
     {
         $this->root = vfsStream::setup(self::TEST_PATH);
         file_put_contents($this->root->url().'/test', 'testContent');
+        $this->readableFile = new File($this->root->url().'/test', 'r');
     }
 
     public function testConstruct(): void
     {
-        $file = new File($this->root->url().'/test', 'r');
-        $this->assertInstanceOf(File::class, $file);
+        $this->assertInstanceOf(File::class, $this->readableFile);
     }
 
     public function testDestruct(): void
     {
-        $file = new File($this->root->url().'/test', 'r');
-
-        $fileHandle = $file->getFileHandle();
+        $fileHandle = $this->readableFile->getFileHandle();
         $this->assertIsNotClosedResource($fileHandle);
 
-        unset($file);
+        unset($this->readableFile);
         $this->assertIsClosedResource($fileHandle);
     }
 
     public function testGetBasename(): void
     {
-        $file = new File($this->root->url().'/test', 'r');
-        $this->assertEquals('test', $file->getBasename());
+        $this->assertEquals('test', $this->readableFile->getBasename());
     }
 
     public function testGetContent(): void
     {
-        $file = new File($this->root->url().'/test', 'r');
-        $this->assertEquals('testContent', $file->getContent());
+        $this->assertEquals('testContent', $this->readableFile->getContent());
     }
 
     public function testGetPath(): void
     {
-        $file = new File($this->root->url().'/test', 'r');
-        $this->assertEquals($this->root->url().'/test', $file->getPath());
+        $this->assertEquals($this->root->url().'/test', $this->readableFile->getPath());
     }
 
     public function testGetFileHandle(): void
     {
-        $file = new File($this->root->url().'/test', 'r');
-        $this->assertIsResource($file->getFileHandle());
-        $this->assertIsNotClosedResource($file->getFileHandle());
+        $this->assertIsResource($this->readableFile->getFileHandle());
+        $this->assertIsNotClosedResource($this->readableFile->getFileHandle());
     }
 }
