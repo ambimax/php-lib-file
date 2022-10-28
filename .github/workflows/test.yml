@@ -1,0 +1,26 @@
+name: Test
+
+on:
+    push:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        concurrency:
+            group: ci-test-${{ github.ref_name }}
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   name: Configure PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.0'
+                    tools: composer:v2
+                    coverage: xdebug
+                    extensions: bcmath, gd
+
+            -   name: Install dependencies
+                run: composer install
+
+            -   name: run tests
+                run: composer check

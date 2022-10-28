@@ -1,0 +1,20 @@
+name: Release
+
+on:
+    workflow_dispatch:
+
+jobs:
+    package:
+        name: "Release"
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+                  persist-credentials: false
+
+            - name: Rollout semantic release
+              id: release
+              uses: docker://ambimax/semantic-release:latest
+              env:
+                  GH_TOKEN: ${{ secrets.AMBIMAX_GITHUB_RELEASE_TOKEN }}
