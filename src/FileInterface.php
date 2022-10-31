@@ -19,4 +19,6 @@ interface FileInterface
      * @return resource
      */
     public function getFileHandle();
+
+    public function rename(string $newPath): bool;
 }

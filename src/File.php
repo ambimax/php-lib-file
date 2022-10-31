@@ -14,11 +14,12 @@ class File implements FileInterface
     protected $fileHandle;
 
     protected string $filePath;
+    protected string $mode;
+
 
     public function __construct(string $filePath, string $mode)
     {
         $this->openStream($filePath, $mode);
-        $this->filePath = $filePath;
     }
 
     protected function openStream(string $filePath, string $mode): void
@@ -34,6 +35,7 @@ class File implements FileInterface
 
         $this->fileHandle = $tmpFileHandle;
         $this->filePath = $filePath;
+        $this->mode = $mode;
     }
 
     public function __destruct()
@@ -67,5 +69,14 @@ class File implements FileInterface
     public function getFileHandle()
     {
         return $this->fileHandle;
+    }
+
+    public function rename(string $newPath): bool
+    {
+        fclose($this->fileHandle);
+        $success = rename($this->filePath, $newPath);
+        $this->openStream($newPath, $this->mode);
+
+        return $success;
     }
 }
