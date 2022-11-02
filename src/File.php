@@ -59,7 +59,24 @@ class File implements FileInterface
      */
     public function getContent()
     {
-        return stream_get_contents($this->fileHandle);
+        $pointerLocation = ftell($this->fileHandle);
+        if (!$pointerLocation){
+            throw new RuntimeException("unable to get current location of the file pointer. exception thrown to prevent unpredictable pointer jumping");
+        }
+        rewind($this->fileHandle);
+
+        $content = stream_get_contents($this->fileHandle);
+        fseek($this->fileHandle, $pointerLocation);
+
+        return $content;
+    }
+
+    /**
+     * @param int<0, max>|null $length
+     */
+    public function fwrite(string $data, ?int $length = null): int|false
+    {
+        return fwrite($this->fileHandle, $data, $length);
     }
 
     /**
