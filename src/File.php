@@ -75,7 +75,7 @@ class File implements FileInterface
     public function getContent()
     {
         $pointerLocation = ftell($this->fileHandle);
-        if (!$pointerLocation){
+        if ($pointerLocation === false){
             throw new RuntimeException("unable to get current location of the file pointer. exception thrown to prevent unpredictable pointer jumping");
         }
         rewind($this->fileHandle);
