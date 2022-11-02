@@ -7,7 +7,6 @@ namespace Ambimax\File\Remote;
 use Ambimax\File\File;
 use phpseclib3\Net\SFTP;
 use phpseclib3\Net\SFTP\Stream;
-use RuntimeException;
 
 class SftpFile extends File
 {
@@ -16,6 +15,9 @@ class SftpFile extends File
     protected string $password;
     protected SFTP $sftp;
 
+    /**
+     * @param File::MODE_* $mode
+     */
     public function __construct(string $hostname, string $username, string $password, string $filePath, string $mode)
     {
         $this->hostname = $hostname;
@@ -38,7 +40,7 @@ class SftpFile extends File
             $mode);
 
         if (false === $tmpFileHandle) {
-            throw new RuntimeException(sprintf('Could not open file \'%s\'.', $filePath));
+            throw new \RuntimeException(sprintf('Could not open file \'%s\'.', $filePath));
         }
 
         $this->fileHandle = $tmpFileHandle;

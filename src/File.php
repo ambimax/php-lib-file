@@ -8,6 +8,10 @@ use RuntimeException;
 
 class File implements FileInterface
 {
+    public const MODE_READ = 'r';
+    public const MODE_READ_PLUS = 'r+';
+    public const MODE_WRITE = 'w';
+    public const MODE_WRITE_PLUS = 'w+';
     /**
      * @var resource
      */
@@ -16,6 +20,9 @@ class File implements FileInterface
     protected string $filePath;
     protected string $mode;
 
+    /**
+     * @param self::MODE_* $mode
+     */
     public function __construct(string $filePath, string $mode)
     {
         $this->openStream($filePath, $mode);
