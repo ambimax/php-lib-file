@@ -72,7 +72,12 @@ class File implements FileInterface
 
     public function rename(string $newPath): bool
     {
+        if ('/' !== $newPath[0]) {
+            $newPath = dirname($this->filePath).'/'.$newPath;
+        }
+
         fclose($this->fileHandle);
+
         $success = rename($this->filePath, $newPath);
         $this->openStream($newPath, $this->mode);
 

@@ -48,7 +48,12 @@ class SftpFile extends File
 
     public function rename(string $newPath): bool
     {
+        if ('/' !== $newPath[0]) {
+            $newPath = dirname($this->filePath).'/'.$newPath;
+        }
+
         fclose($this->fileHandle);
+
         $success = $this->sftp->rename($this->filePath, $newPath);
         $this->openStream($newPath, $this->mode);
 
