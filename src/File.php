@@ -62,6 +62,14 @@ class File implements FileInterface
     }
 
     /**
+     * @return resource
+     */
+    public function getFileHandle()
+    {
+        return $this->fileHandle;
+    }
+
+    /**
      * @return false|string
      */
     public function getContent()
@@ -78,22 +86,6 @@ class File implements FileInterface
         return $content;
     }
 
-    /**
-     * @param int<0, max>|null $length
-     */
-    public function fwrite(string $data, ?int $length = null): int|false
-    {
-        return fwrite($this->fileHandle, $data, $length);
-    }
-
-    /**
-     * @return resource
-     */
-    public function getFileHandle()
-    {
-        return $this->fileHandle;
-    }
-
     public function rename(string $newPath): bool
     {
         if ('/' !== $newPath[0]) {
@@ -106,5 +98,28 @@ class File implements FileInterface
         $this->openStream($newPath, $this->mode);
 
         return $success;
+    }
+
+    /**
+     * @param int<0, max>|null $length
+     */
+    public function fwrite(string $data, ?int $length = null): int|false
+    {
+        return fwrite($this->fileHandle, $data, $length);
+    }
+
+    public function fread(?int $length = null): string|false
+    {
+        return fread($this->fileHandle, $length);
+    }
+
+    public function ftell(): int|false
+    {
+        return ftell($this->fileHandle);
+    }
+
+    public function fseek(int $offset, int $whence = SEEK_SET): int
+    {
+        return fseek($this->fileHandle, $offset, $whence);
     }
 }
