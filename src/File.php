@@ -102,7 +102,7 @@ class File implements FileInterface
             $path = Path::join(dirname($this->filePath), $path);
         }
 
-        if ($path[-1] === DIRECTORY_SEPARATOR){
+        if (DIRECTORY_SEPARATOR === $path[-1]) {
             $path = Path::join($path, $this->getBasename());
         }
 

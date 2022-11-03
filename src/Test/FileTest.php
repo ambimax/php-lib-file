@@ -79,7 +79,6 @@ class FileTest extends TestCase
         $this->assertSame($this->root->url().'/testFolder/test', $this->readableFile->getPath());
         $this->assertFileExists($this->root->url().'/testFolder/test');
 
-
         $this->readableFile->rename('../testFile');
         $this->assertSame($this->root->url().'/testFile', $this->readableFile->getPath());
         $this->assertFileExists($this->root->url().'/testFile');
