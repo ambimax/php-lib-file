@@ -61,7 +61,7 @@ class FileTest extends TestCase
     {
         $oldFileHandle = $this->readableFile->getFileHandle();
 
-        $this->readableFile->rename($this->root->url().'/newtest');
+        $this->readableFile->rename('newtest');
         $this->assertSame($this->root->url().'/newtest', $this->readableFile->getPath());
 
         $newFileHandle = $this->readableFile->getFileHandle();
@@ -70,13 +70,19 @@ class FileTest extends TestCase
         $this->assertIsClosedResource($oldFileHandle);
     }
 
-    public function testMoveToDifferentFolder(): void
+    public function testMoveToDifferentFolderAbsolutePath(): void
     {
         $oldFileHandle = $this->readableFile->getFileHandle();
 
         mkdir($this->root->url().'/testFolder');
-        $this->readableFile->rename($this->root->url().'/testFolder/newtest');
-        $this->assertSame($this->root->url().'/testFolder/newtest', $this->readableFile->getPath());
+        $this->readableFile->rename($this->root->url().'/testFolder/');
+        $this->assertSame($this->root->url().'/testFolder/test', $this->readableFile->getPath());
+        $this->assertFileExists($this->root->url().'/testFolder/test');
+
+
+        $this->readableFile->rename('../testFile');
+        $this->assertSame($this->root->url().'/testFile', $this->readableFile->getPath());
+        $this->assertFileExists($this->root->url().'/testFile');
 
         $newFileHandle = $this->readableFile->getFileHandle();
         $this->assertSame('testContent', stream_get_contents($newFileHandle));
