@@ -121,6 +121,11 @@ class File implements FileInterface
         return $success;
     }
 
+    public function move(string $newPath): bool
+    {
+        return $this->rename($newPath);
+    }
+
     /**
      * @param int<0, max>|null $length
      */
