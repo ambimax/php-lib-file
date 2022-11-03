@@ -33,7 +33,7 @@ class File implements FileInterface
         if (
             !in_array($mode, [
                 self::MODE_WRITE,
-                self::MODE_WRITE_PLUS
+                self::MODE_WRITE_PLUS,
             ]) && !file_exists($filePath)
         ) {
             throw new \RuntimeException("File '$filePath' does not exist.");
