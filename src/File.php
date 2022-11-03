@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ambimax\File;
 
-use RuntimeException;
+use Symfony\Component\Filesystem\Path;
 
 class File implements FileInterface
 {
@@ -31,12 +31,12 @@ class File implements FileInterface
     protected function openStream(string $filePath, string $mode): void
     {
         if (!file_exists($filePath)) {
-            throw new RuntimeException("File '$filePath' does not exist.");
+            throw new \RuntimeException("File '$filePath' does not exist.");
         }
 
         $tmpFileHandle = fopen($filePath, $mode);
         if (false === $tmpFileHandle) {
-            throw new RuntimeException("Could not open file '$filePath'.");
+            throw new \RuntimeException("Could not open file '$filePath'.");
         }
 
         $this->fileHandle = $tmpFileHandle;
@@ -75,8 +75,8 @@ class File implements FileInterface
     public function getContent()
     {
         $pointerLocation = ftell($this->fileHandle);
-        if ($pointerLocation === false){
-            throw new RuntimeException("unable to get current location of the file pointer. exception thrown to prevent unpredictable pointer jumping");
+        if (false === $pointerLocation) {
+            throw new \RuntimeException('unable to get current location of the file pointer. exception thrown to prevent unpredictable pointer jumping');
         }
         rewind($this->fileHandle);
 
@@ -86,11 +86,30 @@ class File implements FileInterface
         return $content;
     }
 
+    /**
+     * Changes relative path to an absolut path relative to the current file location.
+     * This is to prevent confusion of e.g. rename() where the path would be relative to the php working directory.
+     *
+     * If the path is already absolute or has a protocol defined the path won't be modified.
+     *
+     * @param string $path
+     * @return string
+     */
+    protected function ensureAbsolutePath(string $path): string
+    {
+        if (
+            true === Path::isLocal($path) &&
+            false === Path::isAbsolute($path)
+        ) {
+            return Path::join(dirname($this->filePath), $path);
+        }
+
+        return $path;
+    }
+
     public function rename(string $newPath): bool
     {
-        if ('/' !== $newPath[0]) {
-            $newPath = dirname($this->filePath).'/'.$newPath;
-        }
+        $newPath = $this->ensureAbsolutePath($newPath);
 
         fclose($this->fileHandle);
 

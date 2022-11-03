@@ -50,9 +50,7 @@ class SftpFile extends File
 
     public function rename(string $newPath): bool
     {
-        if ('/' !== $newPath[0]) {
-            $newPath = dirname($this->filePath).'/'.$newPath;
-        }
+        $newPath = $this->ensureAbsolutePath($newPath);
 
         fclose($this->fileHandle);
 
