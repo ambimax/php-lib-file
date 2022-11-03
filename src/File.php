@@ -30,7 +30,12 @@ class File implements FileInterface
 
     protected function openStream(string $filePath, string $mode): void
     {
-        if (!file_exists($filePath)) {
+        if (
+            !in_array($mode, [
+                self::MODE_WRITE,
+                self::MODE_WRITE_PLUS
+            ]) && !file_exists($filePath)
+        ) {
             throw new \RuntimeException("File '$filePath' does not exist.");
         }
 
