@@ -91,9 +91,6 @@ class File implements FileInterface
      * This is to prevent confusion of e.g. rename() where the path would be relative to the php working directory.
      *
      * If the path is already absolute or has a protocol defined the path won't be modified.
-     *
-     * @param string $path
-     * @return string
      */
     protected function ensureAbsolutePath(string $path): string
     {
@@ -127,6 +124,9 @@ class File implements FileInterface
         return fwrite($this->fileHandle, $data, $length);
     }
 
+    /**
+     * @param int<0, max>|null $length
+     */
     public function fread(?int $length = null): string|false
     {
         return fread($this->fileHandle, $length);
