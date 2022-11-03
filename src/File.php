@@ -89,8 +89,9 @@ class File implements FileInterface
     /**
      * Changes relative path to an absolut path relative to the current file location.
      * This is to prevent confusion of e.g. rename() where the path would be relative to the php working directory.
+     * If the path is already absolute or has a protocol defined the path won't be affected by this.
      *
-     * If the path is already absolute or has a protocol defined the path won't be modified.
+     * If the path ends with the directory separator ("/") the current file name will get appended
      */
     protected function ensureAbsolutePath(string $path): string
     {
@@ -98,7 +99,11 @@ class File implements FileInterface
             true === Path::isLocal($path) &&
             false === Path::isAbsolute($path)
         ) {
-            return Path::join(dirname($this->filePath), $path);
+            $path = Path::join(dirname($this->filePath), $path);
+        }
+
+        if ($path[-1] === DIRECTORY_SEPARATOR){
+            $path = Path::join($path, $this->getBasename());
         }
 
         return $path;
