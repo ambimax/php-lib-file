@@ -6,11 +6,6 @@ namespace Ambimax\File;
 
 interface FileInterface
 {
-    /**
-     * @return false|string
-     */
-    public function getContent();
-
     public function getPath(): string;
 
     public function getBasename(): string;
@@ -19,4 +14,21 @@ interface FileInterface
      * @return resource
      */
     public function getFileHandle();
+
+    /**
+     * @return false|string
+     */
+    public function getContent();
+
+    public function rename(string $newPath): bool;
+
+    public function move(string $newPath): bool;
+
+    public function fwrite(string $data, ?int $length = null): int|false;
+
+    public function fread(?int $length = null): string|false;
+
+    public function ftell(): int|false;
+
+    public function fseek(int $offset, int $whence = SEEK_SET): int;
 }
