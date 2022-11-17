@@ -66,6 +66,11 @@ class File implements FileInterface
         return basename($this->filePath);
     }
 
+    public function getFilenameWithoutExtension(): string
+    {
+        return pathinfo($this->getPath(), PATHINFO_FILENAME);
+    }
+
     public function getExtension(): string
     {
         return pathinfo($this->getPath(), PATHINFO_EXTENSION);
