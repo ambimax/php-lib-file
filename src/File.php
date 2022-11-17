@@ -66,6 +66,16 @@ class File implements FileInterface
         return basename($this->filePath);
     }
 
+    public function getExtension(): string
+    {
+        return pathinfo($this->getPath(), 'extension');
+    }
+
+    public function __toString(): string
+    {
+        return $this->getPath();
+    }
+
     /**
      * @return resource
      */
