@@ -18,8 +18,8 @@ class FileTest extends TestCase
     public function setUp(): void
     {
         $this->root = vfsStream::setup(self::TEST_PATH);
-        file_put_contents($this->root->url().'/test', 'testContent');
-        $this->readableFile = new File($this->root->url().'/test', 'r');
+        file_put_contents($this->root->url().'/test.txt', 'testContent');
+        $this->readableFile = new File($this->root->url().'/test.txt', 'r');
     }
 
     public function testConstruct(): void
@@ -38,7 +38,7 @@ class FileTest extends TestCase
 
     public function testGetBasename(): void
     {
-        $this->assertEquals('test', $this->readableFile->getBasename());
+        $this->assertEquals('test.txt', $this->readableFile->getBasename());
     }
 
     public function testGetContent(): void
@@ -48,7 +48,25 @@ class FileTest extends TestCase
 
     public function testGetPath(): void
     {
-        $this->assertEquals($this->root->url().'/test', $this->readableFile->getPath());
+        $this->assertEquals($this->root->url().'/test.txt', $this->readableFile->getPath());
+    }
+
+    public function testGetExtension(): void
+    {
+        $this->assertEquals('txt', $this->readableFile->getExtension());
+    }
+
+    public function testGetFilenameWithoutExtension(): void
+    {
+        $this->assertEquals(
+            'test',
+            $this->readableFile->getFilenameWithoutExtension()
+        );
+    }
+
+    public function testToString(): void
+    {
+        $this->assertEquals($this->root->url().'/test.txt', (string) $this->readableFile);
     }
 
     public function testGetFileHandle(): void
@@ -76,12 +94,12 @@ class FileTest extends TestCase
 
         mkdir($this->root->url().'/testFolder');
         $this->readableFile->rename($this->root->url().'/testFolder/');
-        $this->assertSame($this->root->url().'/testFolder/test', $this->readableFile->getPath());
-        $this->assertFileExists($this->root->url().'/testFolder/test');
+        $this->assertSame($this->root->url().'/testFolder/test.txt', $this->readableFile->getPath());
+        $this->assertFileExists($this->root->url().'/testFolder/test.txt');
 
-        $this->readableFile->rename('../testFile');
-        $this->assertSame($this->root->url().'/testFile', $this->readableFile->getPath());
-        $this->assertFileExists($this->root->url().'/testFile');
+        $this->readableFile->rename('../testFile.txt');
+        $this->assertSame($this->root->url().'/testFile.txt', $this->readableFile->getPath());
+        $this->assertFileExists($this->root->url().'/testFile.txt');
 
         $newFileHandle = $this->readableFile->getFileHandle();
         $this->assertSame('testContent', stream_get_contents($newFileHandle));

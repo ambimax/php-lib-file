@@ -8,10 +8,22 @@ use Symfony\Component\Filesystem\Path;
 
 class File implements FileInterface
 {
+    /**
+     * for more Information see parameter 'mode' on
+     * https://www.php.net/manual/de/function.fopen.php.
+     */
     public const MODE_READ = 'r';
     public const MODE_READ_PLUS = 'r+';
     public const MODE_WRITE = 'w';
     public const MODE_WRITE_PLUS = 'w+';
+    public const MODE_A = 'a';
+    public const MODE_A_PLUS = 'a+';
+    public const MODE_X = 'x';
+    public const MODE_X_PLUS = 'x+';
+    public const MODE_C = 'c';
+    public const MODE_C_PLUS = 'c+';
+    public const MODE_E = 'e';
+
     /**
      * @var resource
      */
@@ -64,6 +76,21 @@ class File implements FileInterface
     public function getBasename(): string
     {
         return basename($this->filePath);
+    }
+
+    public function getFilenameWithoutExtension(): string
+    {
+        return pathinfo($this->getPath(), PATHINFO_FILENAME);
+    }
+
+    public function getExtension(): string
+    {
+        return pathinfo($this->getPath(), PATHINFO_EXTENSION);
+    }
+
+    public function __toString(): string
+    {
+        return $this->getPath();
     }
 
     /**
