@@ -9,49 +9,30 @@ use Symfony\Component\Filesystem\Path;
 class File implements FileInterface
 {
     /**
-     * for more Information see parameter 'mode' on
-     * https://www.php.net/manual/de/function.fopen.php.
-     */
-    public const MODE_READ = 'r';
-    public const MODE_READ_PLUS = 'r+';
-    public const MODE_WRITE = 'w';
-    public const MODE_WRITE_PLUS = 'w+';
-    public const MODE_A = 'a';
-    public const MODE_A_PLUS = 'a+';
-    public const MODE_X = 'x';
-    public const MODE_X_PLUS = 'x+';
-    public const MODE_C = 'c';
-    public const MODE_C_PLUS = 'c+';
-    public const MODE_E = 'e';
-
-    /**
      * @var resource
      */
     protected $fileHandle;
 
     protected string $filePath;
-    protected string $mode;
+    protected FileMode $mode;
 
-    /**
-     * @param self::MODE_* $mode
-     */
-    public function __construct(string $filePath, string $mode)
+    public function __construct(string $filePath, FileMode $mode)
     {
         $this->openStream($filePath, $mode);
     }
 
-    protected function openStream(string $filePath, string $mode): void
+    protected function openStream(string $filePath, FileMode $mode): void
     {
         if (
-            !in_array($mode, [
-                self::MODE_WRITE,
-                self::MODE_WRITE_PLUS,
-            ]) && !file_exists($filePath)
+            in_array($mode, [
+                FileMode::R,
+                FileMode::R_PLUS,
+            ], true) && !file_exists($filePath)
         ) {
             throw new \RuntimeException("File '$filePath' does not exist.");
         }
 
-        $tmpFileHandle = fopen($filePath, $mode);
+        $tmpFileHandle = fopen($filePath, $mode->value);
         if (false === $tmpFileHandle) {
             throw new \RuntimeException("Could not open file '$filePath'.");
         }
