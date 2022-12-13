@@ -3,6 +3,7 @@
 namespace Ambimax\File\Test;
 
 use Ambimax\File\File;
+use Ambimax\File\FileMode;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,7 @@ class FileTest extends TestCase
     {
         $this->root = vfsStream::setup(self::TEST_PATH);
         file_put_contents($this->root->url().'/test.txt', 'testContent');
-        $this->readableFile = new File($this->root->url().'/test.txt', 'r');
+        $this->readableFile = new File($this->root->url().'/test.txt', FileMode::R);
     }
 
     public function testConstruct(): void
