@@ -10,7 +10,7 @@ class File implements FileInterface
 {
     /**
      * for more Information see parameter 'mode' on
-     * https://www.php.net/manual/de/function.fopen.php
+     * https://www.php.net/manual/de/function.fopen.php.
      */
     public const MODE_READ = 'r';
     public const MODE_READ_PLUS = 'r+';
@@ -23,7 +23,6 @@ class File implements FileInterface
     public const MODE_C = 'c';
     public const MODE_C_PLUS = 'c+';
     public const MODE_E = 'e';
-
 
     /**
      * @var resource

@@ -49,13 +49,13 @@ class FileTest extends TestCase
     public function testGetPath(): void
     {
         $this->assertEquals($this->root->url().'/test.txt', $this->readableFile->getPath());
-    }    
-    
+    }
+
     public function testGetExtension(): void
     {
         $this->assertEquals('txt', $this->readableFile->getExtension());
     }
-    
+
     public function testGetFilenameWithoutExtension(): void
     {
         $this->assertEquals(
@@ -66,7 +66,7 @@ class FileTest extends TestCase
 
     public function testToString(): void
     {
-        $this->assertEquals($this->root->url().'/test.txt', (string)$this->readableFile);
+        $this->assertEquals($this->root->url().'/test.txt', (string) $this->readableFile);
     }
 
     public function testGetFileHandle(): void
