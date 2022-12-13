@@ -22,14 +22,15 @@ __1. Argument:__
 fopen compatible filename
 
 __2. Argument:__   
-Any of the File::MODE_* consts
-This consts are the available options of the [fopen](https://www.php.net/manual/de/function.fopen.php) `mode`parameter.
+FileMode Enum
+This Enum Cases are the available options of the [fopen](https://www.php.net/manual/de/function.fopen.php) `mode`parameter.
 
 ```php
 use \Ambimax\File\File;
+use \Ambimax\File\FileMode;
 
-//                fopenCompatibleFilename   Any File::MODE_*
-$file = new File(     '/tmp/filename'     , File::MODE_READ  );
+//                fopenCompatibleFilename   FileMode Enum
+$file = new File(     '/tmp/filename'     ,  FileMode::R  );
 ```
 
 ## Remotes
