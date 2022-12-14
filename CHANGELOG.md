@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/ambimax/php-lib-file/compare/1.0.0...2.0.0) (2022-12-14)
+
+
+### chore
+
+* Trigger major release for previous commits ([aa3e7bf](https://github.com/ambimax/php-lib-file/commit/aa3e7bfb672daa2ea01e26a761d4b55d9f18b8a7))
+* Trigger major release for previous commits ([8fd0aeb](https://github.com/ambimax/php-lib-file/commit/8fd0aeb88465dd39b7389b24da1083a7a56ac1e1))
+
+
+### BREAKING CHANGES
+
+* replaced Filemode consts with Filemode Enum
+changed file existence validation in openStream,
+removed duplications in SftpFile openStream
+* set minimal php version to 8.1
+
 # 1.0.0 (2022-12-13)
 
 
