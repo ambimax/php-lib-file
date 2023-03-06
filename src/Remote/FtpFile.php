@@ -45,4 +45,18 @@ class FtpFile extends File
         $this->filePath = $filePath;
         $this->mode = $mode;
     }
+
+    /*
+     * The file won't be opened after renaming it since FTP isn't able to write a file without deleting its previous content
+     */
+    public function rename(string $newPath): bool
+    {
+        $newPath = $this->ensureAbsolutePath($newPath);
+
+        fclose($this->fileHandle);
+
+        $success = rename($this->filePath, $newPath);
+
+        return $success;
+    }
 }
