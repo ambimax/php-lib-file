@@ -59,4 +59,27 @@ class FtpFile extends File
 
         return $success;
     }
+
+    /**
+     * @return false|string
+     */
+    public function getContent(): bool|string
+    {
+        $pointerLocation = ftell($this->fileHandle);
+        if (false === $pointerLocation) {
+            throw new \RuntimeException('unable to get current location of the file pointer. exception thrown to prevent unpredictable pointer jumping');
+        }
+
+        $this->openStream($this->filePath, $this->mode);
+
+        $content = stream_get_contents($this->fileHandle);
+
+        $this->openStream($this->filePath, $this->mode);
+
+        if ($pointerLocation > 0) {
+            $this->fread($pointerLocation);
+        }
+
+        return $content;
+    }
 }
