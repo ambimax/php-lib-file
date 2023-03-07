@@ -1,3 +1,17 @@
+# [2.1.0](https://github.com/ambimax/php-lib-file/compare/2.0.0...2.1.0) (2023-03-07)
+
+
+### Bug Fixes
+
+* prevent erasing the content of a file after renaming it ([949b200](https://github.com/ambimax/php-lib-file/commit/949b200f405ec9651ab964abf4cd5d30f826fd2d))
+* rewind() and fseek() do not work for ftp ([0be5126](https://github.com/ambimax/php-lib-file/commit/0be5126bc50432b5a94c82a520f1708239ac411c))
+
+
+### Features
+
+* added Documentation ([b9b932d](https://github.com/ambimax/php-lib-file/commit/b9b932d7b58f51ba843443941355f2d5a83fac7d))
+* added FtpFile.php ([53080a0](https://github.com/ambimax/php-lib-file/commit/53080a0188944dccd5082443f6df0ac76462e17d))
+
 # [2.0.0](https://github.com/ambimax/php-lib-file/compare/1.0.0...2.0.0) (2022-12-14)
 
 
