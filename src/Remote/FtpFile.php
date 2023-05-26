@@ -35,7 +35,7 @@ class FtpFile extends File
             throw new \RuntimeException("File '$filePath' does not exist.");
         }
 
-        $context = stream_context_create(['ftp' => ['overwrite' => $this->overwrite]]);
+        $context = stream_context_create(['ftp' => ['overwrite' => (int) $this->overwrite]]);
         $tmpFileHandle = fopen($filePath, $mode->value, context: $context);
         if (false === $tmpFileHandle) {
             throw new \RuntimeException("Could not open file '$filePath'.");

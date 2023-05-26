@@ -24,9 +24,9 @@ interface FileInterface
 
     public function move(string $newPath): bool;
 
-    public function fwrite(string $data, ?int $length = null): int|false;
+    public function fwrite(string $data, int $length = null): int|false;
 
-    public function fread(?int $length = null): string|false;
+    public function fread(int $length = null): string|false;
 
     public function ftell(): int|false;
 
