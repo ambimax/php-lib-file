@@ -109,8 +109,8 @@ class File implements FileInterface
     protected function ensureAbsolutePath(string $path): string
     {
         if (
-            true === Path::isLocal($path) &&
-            false === Path::isAbsolute($path)
+            true === Path::isLocal($path)
+            && false === Path::isAbsolute($path)
         ) {
             $path = Path::join(dirname($this->filePath), $path);
         }
@@ -142,7 +142,7 @@ class File implements FileInterface
     /**
      * @param int<0, max>|null $length
      */
-    public function fwrite(string $data, ?int $length = null): int|false
+    public function fwrite(string $data, int $length = null): int|false
     {
         return fwrite($this->fileHandle, $data, $length);
     }
@@ -150,7 +150,7 @@ class File implements FileInterface
     /**
      * @param int<0, max>|null $length
      */
-    public function fread(?int $length = null): string|false
+    public function fread(int $length = null): string|false
     {
         return fread($this->fileHandle, $length);
     }
