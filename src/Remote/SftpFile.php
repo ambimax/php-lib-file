@@ -11,16 +11,15 @@ use phpseclib3\Net\SFTP\Stream;
 
 class SftpFile extends File
 {
-    protected string $hostname;
-    protected string $username;
-    protected string $password;
     protected SFTP $sftp;
 
-    public function __construct(string $hostname, string $username, string $password, string $filePath, FileMode $mode)
+    public function __construct(
+        protected string $hostname,
+        protected string $username,
+        protected string $password,
+        string $filePath,
+        FileMode $mode)
     {
-        $this->hostname = $hostname;
-        $this->username = $username;
-        $this->password = $password;
         $this->sftp = new SFTP($hostname);
         $this->sftp->login($username, $password);
         parent::__construct($filePath, $mode);

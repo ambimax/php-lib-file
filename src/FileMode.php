@@ -10,6 +10,7 @@ namespace Ambimax\File;
 enum FileMode: string
 {
     case R = 'r';
+    case R_B = 'rb';
     case R_PLUS = 'r+';
     case W = 'w';
     case W_PLUS = 'w+';
