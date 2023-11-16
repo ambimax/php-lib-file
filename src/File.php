@@ -13,10 +13,9 @@ class File implements FileInterface
      */
     protected $fileHandle;
 
-    protected string $filePath;
-    protected FileMode $mode;
-
-    public function __construct(string $filePath, FileMode $mode)
+    public function __construct(
+        protected string $filePath,
+        protected FileMode $mode)
     {
         $this->openStream($filePath, $mode);
     }
