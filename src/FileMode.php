@@ -3,7 +3,7 @@
 namespace Ambimax\File;
 
 /**
- * These are the possible modes Php fopen() function
+ * These are the possible modes Php fopen()-function
  * for more Information see parameter 'mode' on
  * https://www.php.net/manual/de/function.fopen.php.
  */
