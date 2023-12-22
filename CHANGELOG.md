@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/ambimax/php-lib-file/compare/2.1.1...2.1.2) (2023-12-22)
+
+
+### Bug Fixes
+
+* add new version ([1b924c0](https://github.com/ambimax/php-lib-file/commit/1b924c067840a0890c8624fec6db644f1951d6d6))
+
 # [2.1.0](https://github.com/ambimax/php-lib-file/compare/2.0.0...2.1.0) (2023-03-07)
 
 
