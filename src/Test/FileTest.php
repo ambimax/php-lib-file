@@ -31,10 +31,10 @@ class FileTest extends TestCase
     public function testDestruct(): void
     {
         $fileHandle = $this->readableFile->getFileHandle();
-        $this->assertIsNotClosedResource($fileHandle);
+        $this->assertTrue(is_resource($fileHandle));
 
         unset($this->readableFile);
-        $this->assertIsClosedResource($fileHandle);
+        $this->assertFalse(is_resource($fileHandle));
     }
 
     public function testGetBasename(): void
@@ -72,8 +72,9 @@ class FileTest extends TestCase
 
     public function testGetFileHandle(): void
     {
-        $this->assertIsResource($this->readableFile->getFileHandle());
-        $this->assertIsNotClosedResource($this->readableFile->getFileHandle());
+        $fileHandle = $this->readableFile->getFileHandle();
+
+        $this->assertTrue(is_resource($fileHandle));
     }
 
     public function testRename(): void
@@ -86,7 +87,7 @@ class FileTest extends TestCase
         $newFileHandle = $this->readableFile->getFileHandle();
         $this->assertSame('testContent', stream_get_contents($newFileHandle));
 
-        $this->assertIsClosedResource($oldFileHandle);
+        $this->assertFalse(is_resource($oldFileHandle));
     }
 
     public function testMoveToDifferentFolderAbsolutePath(): void
@@ -105,6 +106,6 @@ class FileTest extends TestCase
         $newFileHandle = $this->readableFile->getFileHandle();
         $this->assertSame('testContent', stream_get_contents($newFileHandle));
 
-        $this->assertIsClosedResource($oldFileHandle);
+        $this->assertFalse(is_resource($oldFileHandle));
     }
 }
