@@ -1,3 +1,10 @@
+## [2.1.5](https://github.com/ambimax/php-lib-file/compare/2.1.4...2.1.5) (2026-11-25)
+
+
+### Bug Fixes
+
+* update php and phpstan version ([bde8a6e](https://github.com/ambimax/php-lib-file/commit/bde8a6e9d9ac0ba792029f3b1011ea9f53516a59))
+
 ## [2.1.2](https://github.com/ambimax/php-lib-file/compare/2.1.1...2.1.2) (2023-12-22)
 
 
