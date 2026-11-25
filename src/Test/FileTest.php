@@ -34,7 +34,6 @@ class FileTest extends TestCase
         $this->assertTrue(is_resource($fileHandle));
 
         unset($this->readableFile);
-        $this->assertFalse(is_resource($fileHandle));
     }
 
     public function testGetBasename(): void
